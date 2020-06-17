@@ -27,7 +27,6 @@
  <!-- DATE EXAMPLE -->
  <target name="date">
   <echo message="Printing system date ..."/>
-  <exec executable="date" />
  </target>
  
 <target name="full-build" depends="prepare,static-analysis,phpunit,phpdox,-check-failure" description="Performs static analysis, runs the tests, and generates project documentation"/>
