@@ -3,6 +3,9 @@
 class GumballMachine {
     private $gumballs;
 
+    /**
+     * Get the gumballs
+     */
     public function getGumballs() {
         return $this->gumballs;
     }
