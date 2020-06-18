@@ -12,3 +12,6 @@ vendor/*
 
 # cache
 cache.properties
+
+# phpdox
+docs

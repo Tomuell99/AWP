@@ -3,14 +3,7 @@
 <project name="AWP" default="build">
 
   <!-- <target name="build" depends="prepare,lint,phploc,pdepend,phpmd-ci,phpcs-ci,phpcpd,phpdox,phpunit,phpcb"/> -->
-  <target name="build" depends="prepare,lint,phpunit" />
-
-  <target name="composer" description="Installing composer dependencies">
-    <exec executable="php">
-      <arg value="C:/bin/composer.phar" />
-      <arg value="install"/>
-    </exec>
-  </target>
+  <target name="build" depends="prepare,lint,phpunit,phpcs,phpmd,pdepend,phpdox,phploc" />
 
   <target name="clean" description="Cleanup build artifacts">
     <delete dir="${basedir}/build/api"/>
@@ -46,7 +39,8 @@
   </target>
 
   <target name="phploc" description="Measure project size using PHPLOC">
-    <exec executable="phploc">
+    <exec executable="php">
+      <arg value="C:/bin/phploc.phar" />
       <arg value="--log-csv" />
       <arg value="${basedir}/build/logs/phploc.csv" />
       <arg path="${basedir}/src" />
@@ -54,7 +48,8 @@
   </target>
 
   <target name="pdepend" description="Calculate software metrics using PHP_Depend">
-    <exec executable="pdepend">
+    <exec executable="php">
+      <arg value="C:/bin/pdepend.phar" />
       <arg value="--jdepend-xml=${basedir}/build/logs/jdepend.xml" />
       <arg value="--jdepend-chart=${basedir}/build/pdepend/dependencies.svg" />
       <arg value="--overview-pyramid=${basedir}/build/pdepend/overview-pyramid.svg" />
@@ -63,20 +58,11 @@
   </target>
 
   <target name="phpmd" description="Perform project mess detection using PHPMD and print human readable output. Intended for usage on the command line before committing.">
-    <exec executable="phpmd">
+    <exec executable="php">
+      <arg value="C:/bin/phpmd.phar" />
       <arg path="${basedir}/src" />
       <arg value="text" />
       <arg value="${basedir}/build/phpmd.xml" />
-    </exec>
-  </target>
-
-  <target name="phpmd-ci" description="Perform project mess detection using PHPMD creating a log file for the continuous integration server">
-    <exec executable="phpmd">
-      <arg path="${basedir}/src" />
-      <arg value="xml" />
-      <arg value="${basedir}/build/phpmd.xml" />
-      <arg value="--reportfile" />
-      <arg value="${basedir}/build/logs/pmd.xml" />
     </exec>
   </target>
 
@@ -97,7 +83,8 @@
   </target>
 
   <target name="phpcpd" description="Find duplicate code using PHPCPD">
-    <exec executable="phpcpd">
+    <exec executable="php">
+      <arg value="C:/bin/phpcpd.phar" />
       <arg value="--log-pmd" />
       <arg value="${basedir}/build/logs/pmd-cpd.xml" />
       <arg path="${basedir}/src" />
@@ -105,7 +92,9 @@
   </target>
 
   <target name="phpdox" description="Generate API documentation using phpDox">
-    <exec executable="phpdox"/>
+    <exec executable="php">
+      <arg value="C:/bin/phpdox.phar" />
+    </exec>
   </target>
 
   <target name="phpunit" description="Run unit tests with PHPUnit">
