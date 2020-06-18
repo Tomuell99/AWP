@@ -3,7 +3,7 @@
 <project name="AWP" default="build">
 
   <!-- <target name="build" depends="prepare,lint,phploc,pdepend,phpmd-ci,phpcs-ci,phpcpd,phpdox,phpunit,phpcb"/> -->
-  <target name="build" depends="prepare,lint,phpunit,phpcs,phpmd,pdepend,phpdox,phploc" />
+  <target name="build" depends="prepare,lint,phpunit,phpmd,pdepend,phpdox,phploc" />
 
   <target name="clean" description="Cleanup build artifacts">
     <delete dir="${basedir}/build/api"/>
