@@ -1,8 +1,9 @@
 <?php 
 
 require 'GumballMachine.php';
+use PHPUnit\Framework\TestCase;
 
-class GumballMachineTest extends PHPUnit_Framework_TestCase {
+class GumballMachineTest extends TestCase {
     public $gumballMachineInstance;
 
     public function setUp() {
@@ -10,7 +11,7 @@ class GumballMachineTest extends PHPUnit_Framework_TestCase {
     }
 
     public function testIfWheelWorks() {
-        $this->gumballMachineInstance->setGumball(100);
+        $this->gumballMachineInstance->setGumballs(100);
 
         $this->gumballMachineInstance->turnWheel();
 
