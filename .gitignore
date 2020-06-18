@@ -9,3 +9,6 @@ build/*
 
 # composer dependencies
 vendor/*
+
+# cache
+cache.properties
