@@ -1,6 +1,12 @@
 <?php
 
 /**
+ * Tobi ist super!
+ */
+echo "Tobi ist super!";
+
+
+/**
  * class GumballMachine
  */
 class GumballMachine {
