@@ -2,17 +2,17 @@
 
 <project name="AWP" default="build">
 
-  <target name="build" depends="prepare,lint,phpmd,phpunit,phpmd,pdepend,phpdox,phploc" />
-
-  <target name="clean" description="Cleanup build artifacts">
-    <delete dir="${basedir}/build/logs"/>
-    <delete dir="${basedir}/build/pdepend"/>
-  </target>
+  <target name="build" depends="prepare,lint,phpunit,phpcpd,phpmd,pdepend,phpdox,phploc" />
 
   <target name="prepare" depends="clean" description="Prepare for build">
     <mkdir dir="${basedir}/build/logs"/>
     <mkdir dir="${basedir}/build/pdepend"/>
     <mkdir dir="${basedir}/build/phpdox"/>
+  </target>
+
+  <target name="clean" description="Cleanup build artifacts">
+    <delete dir="${basedir}/build/logs"/>
+    <delete dir="${basedir}/build/pdepend"/>
   </target>
 
   <target name="lint" description="Perform syntax check of sourcecode files">
@@ -31,21 +31,18 @@
     </apply>
   </target>
 
-  <target name="phploc" description="Measure project size using PHPLOC">
-    <exec executable="php">
-      <arg value="C:/bin/phploc.phar" />
-      <arg value="--log-csv" />
-      <arg value="${basedir}/build/logs/phploc.csv" />
-      <arg path="${basedir}/src" />
+  <target name="phpunit" description="Run unit tests with PHPUnit">
+    <exec executable="php" failonerror="true">
+      <arg value="C:/bin/phpunit.phar" />
+      <arg value="src/tests/" />
     </exec>
   </target>
 
-  <target name="pdepend" description="Calculate software metrics using PHP_Depend">
+  <target name="phpcpd" description="Find duplicate code using PHPCPD">
     <exec executable="php">
-      <arg value="C:/bin/pdepend.phar" />
-      <arg value="--jdepend-xml=${basedir}/build/logs/jdepend.xml" />
-      <arg value="--jdepend-chart=${basedir}/build/pdepend/dependencies.svg" />
-      <arg value="--overview-pyramid=${basedir}/build/pdepend/overview-pyramid.svg" />
+      <arg value="C:/bin/phpcpd.phar" />
+      <arg value="--log-pmd" />
+      <arg value="${basedir}/build/logs/pmd-cpd.xml" />
       <arg path="${basedir}/src" />
     </exec>
   </target>
@@ -59,12 +56,12 @@
     </exec>
   </target>
 
-
-  <target name="phpcpd" description="Find duplicate code using PHPCPD">
+  <target name="pdepend" description="Calculate software metrics using PHP_Depend">
     <exec executable="php">
-      <arg value="C:/bin/phpcpd.phar" />
-      <arg value="--log-pmd" />
-      <arg value="${basedir}/build/logs/pmd-cpd.xml" />
+      <arg value="C:/bin/pdepend.phar" />
+      <arg value="--jdepend-xml=${basedir}/build/logs/jdepend.xml" />
+      <arg value="--jdepend-chart=${basedir}/build/pdepend/dependencies.svg" />
+      <arg value="--overview-pyramid=${basedir}/build/pdepend/overview-pyramid.svg" />
       <arg path="${basedir}/src" />
     </exec>
   </target>
@@ -75,21 +72,13 @@
     </exec>
   </target>
 
-  <target name="phpunit" description="Run unit tests with PHPUnit">
-    <exec executable="php" failonerror="true">
-      <arg value="C:/bin/phpunit.phar" />
-      <arg value="src/tests/" />
+  <target name="phploc" description="Measure project size using PHPLOC">
+    <exec executable="php">
+      <arg value="C:/bin/phploc.phar" />
+      <arg value="--log-csv" />
+      <arg value="${basedir}/build/logs/phploc.csv" />
+      <arg path="${basedir}/src" />
     </exec>
   </target>
 
-  <target name="phpcb" description="Aggregate tool output with PHP_CodeBrowser">
-    <exec executable="phpcb">
-      <arg value="--log" />
-      <arg path="${basedir}/build/logs" />
-      <arg value="--source" />
-      <arg path="${basedir}/src" />
-      <arg value="--output" />
-      <arg path="${basedir}/build/code-browser" />
-    </exec>
-  </target>
 </project>
